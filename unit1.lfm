@@ -1,0 +1,379 @@
+object Form1: TForm1
+  Left = 379
+  Height = 976
+  Top = 32
+  Width = 1525
+  Align = alClient
+  Caption = 'Data Interpretaion Tool'
+  ClientHeight = 976
+  ClientWidth = 1525
+  Color = clScrollBar
+  OnClose = FormClose
+  OnCreate = FormCreate
+  LCLVersion = '2.0.12.0'
+  object RefreshData: TButton
+    Left = 24
+    Height = 25
+    Top = 64
+    Width = 192
+    Caption = 'Refresh databank'
+    OnClick = RefreshDataClick
+    TabOrder = 0
+  end
+  object SetDataBank: TButton
+    Left = 144
+    Height = 26
+    Top = 8
+    Width = 32
+    Caption = 'Set'
+    OnClick = SetDataBankClick
+    TabOrder = 1
+  end
+  object UnsetDataBank: TButton
+    Left = 176
+    Height = 26
+    Top = 8
+    Width = 48
+    Caption = 'Unset'
+    OnClick = UnsetDataBankClick
+    TabOrder = 2
+  end
+  object DatabankTree: TTreeView
+    Left = 16
+    Height = 221
+    Hint = 'Doubleclick Node to search for *.dat files'
+    Top = 119
+    Width = 208
+    ReadOnly = True
+    TabOrder = 3
+    OnClick = DatabankTreeClick
+    OnMouseLeave = DatabankTreeMouseLeave
+    OnMouseMove = DatabankTreeMouseMove
+    Options = [tvoAutoItemHeight, tvoHideSelection, tvoKeepCollapsedNodes, tvoReadOnly, tvoShowButtons, tvoShowLines, tvoShowRoot, tvoToolTips, tvoThemedDraw]
+  end
+  object DataBankPath: TLabeledEdit
+    Left = 16
+    Height = 23
+    Top = 32
+    Width = 207
+    EditLabel.Height = 15
+    EditLabel.Width = 207
+    EditLabel.Caption = 'DataBank Path'
+    EditLabel.ParentColor = False
+    TabOrder = 4
+  end
+  object frPreview1: TfrPreview
+    Left = 792
+    Height = 904
+    Top = 32
+    Width = 712
+    BevelOuter = bvLowered
+    Color = clMenu
+    ParentColor = False
+    TabOrder = 5
+    ScrollBars = ssBoth
+  end
+  object Workfolder: TLabeledEdit
+    Left = 232
+    Height = 23
+    Top = 32
+    Width = 472
+    Color = clScrollBar
+    EditLabel.Height = 15
+    EditLabel.Width = 472
+    EditLabel.Caption = 'Search Path'
+    EditLabel.ParentColor = False
+    ReadOnly = True
+    TabOrder = 6
+  end
+  object FilesGrid: TStringGrid
+    Left = 224
+    Height = 244
+    Hint = 'Click on path to Draw a graph'
+    Top = 96
+    Width = 552
+    ColCount = 3
+    RowCount = 15
+    TabOrder = 7
+    OnClick = FilesGridClick
+    ColWidths = (
+      26
+      72
+      430
+    )
+  end
+  object ClrGrid: TButton
+    Left = 232
+    Height = 25
+    Top = 64
+    Width = 192
+    Caption = 'Clear Grid'
+    OnClick = ClrGridClick
+    TabOrder = 8
+  end
+  object AddGraph: TLabeledEdit
+    Left = 232
+    Height = 21
+    Top = 366
+    Width = 472
+    Color = clScrollBar
+    EditLabel.Height = 15
+    EditLabel.Width = 472
+    EditLabel.Caption = 'Graph Drawn From:'
+    EditLabel.ParentColor = False
+    Font.CharSet = RUSSIAN_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'Segoe UI'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 9
+    OnChange = AddGraphChange
+  end
+  object AddGraphButton: TButton
+    Left = 136
+    Height = 15
+    Top = 366
+    Width = 48
+    Caption = 'Add'
+    OnClick = AddGraphButtonClick
+    TabOrder = 10
+  end
+  object Note: TMemo
+    Left = 16
+    Height = 96
+    Top = 824
+    Width = 728
+    Lines.Strings = (
+      'Note'
+    )
+    TabOrder = 11
+  end
+  object AddNoteButton: TButton
+    Left = 136
+    Height = 15
+    Top = 800
+    Width = 48
+    Caption = 'Add'
+    OnClick = AddNoteButtonClick
+    TabOrder = 12
+  end
+  object Chart1: TChart
+    Left = 16
+    Height = 400
+    Top = 392
+    Width = 760
+    AntialiasingMode = amOn
+    AxisList = <    
+      item
+        Grid.Color = clSilver
+        Marks.LabelBrush.Style = bsClear
+        Minors = <>
+        Title.LabelFont.Orientation = 900
+        Title.Caption = 'X'
+        Title.LabelBrush.Style = bsClear
+      end    
+      item
+        Grid.Color = clSilver
+        Alignment = calBottom
+        Marks.Distance = 2
+        Marks.Format = '%0.9g'
+        Marks.LabelBrush.Style = bsClear
+        Marks.OverlapPolicy = opHideNeighbour
+        Marks.Style = smsCustom
+        Minors = <>
+        Title.Caption = 'Time'
+        Title.LabelBrush.Style = bsClear
+      end>
+    Foot.Brush.Color = clBtnFace
+    Foot.Font.Color = clBlue
+    Title.Brush.Color = clBtnFace
+    Title.Font.Color = clBlue
+    Title.Text.Strings = (
+      'TAChart'
+    )
+    object Chart1LineSeries1: TLineSeries
+      Source = ListChartSource1
+    end
+  end
+  object AddNote: TLabel
+    Left = 24
+    Height = 15
+    Top = 800
+    Width = 98
+    Caption = 'Add note to report'
+    ParentColor = False
+  end
+  object PDFReportButton: TButton
+    Left = 1232
+    Height = 25
+    Top = 927
+    Width = 88
+    Caption = 'Save as PDF'
+    OnClick = PDFReportButtonClick
+    TabOrder = 14
+  end
+  object HTMLReportButton: TButton
+    Left = 1352
+    Height = 25
+    Top = 927
+    Width = 88
+    Caption = 'Save as HTML'
+    OnClick = HTMLReportButtonClick
+    TabOrder = 15
+  end
+  object Label3: TLabel
+    Left = 24
+    Height = 15
+    Top = 366
+    Width = 105
+    Caption = 'Add graph to report'
+    ParentColor = False
+  end
+  object Edit1: TEdit
+    Left = 16
+    Height = 23
+    Top = 96
+    Width = 208
+    ReadOnly = True
+    TabOrder = 16
+    Text = 'Data Bank Tree'
+  end
+  object CompileButton: TButton
+    Left = 792
+    Height = 25
+    Top = 936
+    Width = 112
+    Caption = 'Compile Report'
+    OnClick = CompileButtonClick
+    TabOrder = 17
+  end
+  object Image1: TImage
+    Left = 1200
+    Height = 30
+    Top = 928
+    Width = 30
+    Picture.Data = {
+      1754506F727461626C654E6574776F726B47726170686963E501000089504E47
+      0D0A1A0A0000000D4948445200000018000000180806000000E0773DF8000000
+      0473424954080808087C086488000000097048597300000EC400000EC401952B
+      0E1B00000187494441544889AD942F6FC24018C69F5B50FB04E066EBE6003BD1
+      506AF6092A48DA0542323FB1B413F825A44B8623999FE9684E6001B1648E8FC0
+      D424F626CA1DFD736DAF2D8FBADC35CFEF7DDE7B7BC4B16D0645BD2F1644F55B
+      21C7B6998A1CDB66BBCD46B918AE165F0C743DF7A390D2CA8567004D4C9400D7
+      DD2700C07137CBA40929C5EDFD0B1E3FF6E84DD7A24D96A16162760AEFA525DB
+      2C4B63191A0060B9DAC30F0EAC082205C812FC7C3EE37534C2F7DF0D96AB3D2C
+      43836568A5100138EE664A09266687F8C181A521A5099A4E515E8ACA53D49BAE
+      45F55C3C456FBA66DBF95D02529820A414035D17F06EBF0F3F38E4B6C432346C
+      E748FC8CA509D2FBE3611B00104FC1D7E3611B6376F62784448007C7919AE729
+      0EE195F3BDB4AA3E5E8CC52A7CFBFA8D80660760D9678A10D20C7072E12752C0
+      5545401E1600E079DE05AC4E725D375A44F689A79D9F0160976B51749A3AAAD9
+      A24C2BB831C9D6DB2C81C4306D2E7D4D9554303D7170BD29CA3117ADE3575F43
+      D2C911139512EA4C51D58AFE0197EC1D592643BB2B0000000049454E44AE4260
+      82
+    }
+    Stretch = True
+  end
+  object Image2: TImage
+    Left = 1320
+    Height = 30
+    Top = 928
+    Width = 30
+    Picture.Data = {
+      1754506F727461626C654E6574776F726B477261706869635405000089504E47
+      0D0A1A0A0000000D49484452000000300000003008060000005702F987000000
+      0473424954080808087C086488000000097048597300000EC400000EC401952B
+      0E1B0000001974455874536F667477617265007777772E696E6B73636170652E
+      6F72679BEE3C1A000004D1494441546881ED986D6C535518C77FE7AEA3B0C136
+      111104741B0E9790F02265EB06C4E007449618253198F0C14474832FBAC94B8C
+      04C3073411D9D610A35231314822310A0A89191025CA5877C9C69C3864A26C10
+      60B800A31D65746B7BFCB0DD6EED7A77DBAEB424EE9734BDF739CFF9F739E7B9
+      CFB9E714C6482E42BB282D2D3D092C8DB37EADDD6E5F1667CD209421D7F10EFE
+      7E6906610A35ECD9B3272EC265656571D13142317679B01996010D8BC5129360
+      434343587B6179FD490416A00B6847F2BB50E489BED4D49AC60F2DCE987E8C44
+      6640B014180F4C078A109449290E987ABD570BCAD54F166F3E3D2D1659DD0CE8
+      CDE468B195E573FD9687B67F7B686EEBA6F58A3B1DE406E1956B0BCBEBD7A936
+      EBB7D1E825BC06B2D24DE4CF4AE779CB14DE7939870F5ECD63616E064006826F
+      AC6F3B3644A3A79B012182EFA5ECFF36AA8D6833377DB299B75E7C9C63676EF2
+      F52F1D424AF1716145FD3F6AB5F55824FD1F985568C5D30FB37AC954E88FE9B3
+      B9DB5BC645D24F37037A8CB63636EDFD8BD9D32750949FC982D919416D258BA7
+      A29E7771E5C6BD9C492ED73AE05323BDC46540520B70C3D58BDAEAC4F6C36576
+      1FBE8CD7E71F0C46A0650129454524B2516720D61A506DD6658B4A1BD24CE3BD
+      3330518264EB99BF5D53F6FDD4C16B2B6604FC16E466909166C275D79B57B4B1
+      2EDF51597C7EA4DF4B680D34DA2D77D5DDD60B6A95D586C233C0DDDA962EAEDD
+      F40C0624605EF62400A414AB8C347533A0AD3AA1C4EBFDA0565ACF592B1CFBFC
+      52AC575B9DBC543C35D03667661AB5E7BA4032CF4827D9ABD08F0017AEB9838C
+      8F669901F0A3E41909246C2F140E81FC5322B8E1EC0BB23F9299AAB53F61A491
+      D40C983D9EEB00CE1E6F907DBC3945BB4C37D248F85E686057BA14A067C0D6E7
+      0D2E38B329B00DC82AACA81F6C94D4AA366BD0092FF11910A4859A9E9C3621E8
+      3E4511CC796C985BD8BE31D78096A1503FA3CC29F85FF0A3D403330B9FCA64FD
+      AA59C3F65D00EFBE928B94B0F7E8154E9DBB0DD091A2F8560FD74B308EEAE2AB
+      0AFE55485C6AAB9343759DBABE074F756AC1DF5184BFA4AE72C9A5509F51D740
+      2CB5E2A82E3E5B5451B7C68F72E4B0DA69CA9A68E2D9F993837C7EFDA38B23A7
+      3B017C42C8B58EAAE2A6705A495B851CD5C53512B11EE0AB9F3B68BAE80AB49D
+      6DEFE6CBE3D7B4DB37EBAB8A0EEBE90CFD5F48E7DD3B3AEC767B98277C908272
+      75871072AB3935456E5D932D1445F0FE818BF4F4FA0176A8D5D66D23F51F9A81
+      DA38C41B8AA1E6695BC13660BFA7CF27AA0E5D66D77797B4E0F7ABD585EF19F5
+      1F717612C5DCED2DE3263ABB6B80E503A613773227AD6CD93EB7D7A8EF033100
+      8005E54D5966E1A901F048F3CADF6C0B6F273BA6312221F0086DFCBCEDBEAC42
+      F78BCA37720424FF3C306A0CCFC4BB5ECF0660D3DEF611ED1FADCB0EDB7FF317
+      ED01FFA38DB739DE145C9BCBE7655252F0D0301DAD9F11511FEAF508B7210BE5
+      B9455900814168C147AB3394B80D60CBC08CED1C98C12D3A33A80D22F43A5622
+      1E806230337E39F2FD50E211B846C403D8A9F38C474B739B9BF939FD27C5E68B
+      6EE6E71A9E1A4724E25548867C62E5E0A95B74F7F870DFF371C8716B144AFD44
+      9C81CD3AAB50B4B8EFF9F8BEAE3FF03B3DBE98348612B7228E86E636B7B15384
+      24650091109AE1D0F79086E100F4FE62D4B3279AB1BDD018FF77FE03EDD4A9F6
+      9CA713820000000049454E44AE426082
+    }
+    Stretch = True
+  end
+  object Label1: TLabel
+    Left = 792
+    Height = 15
+    Top = 16
+    Width = 251
+    Caption = 'Report Preview, type "Compile Report" to see it.'
+    ParentColor = False
+  end
+  object lrPDFExport1: TlrPDFExport
+    Left = 88
+    Top = 920
+  end
+  object frUserDataset1: TfrUserDataset
+    OnCheckEOF = frUserDataset1CheckEOF
+    OnFirst = frUserDataset1First
+    OnNext = frUserDataset1Next
+    Left = 296
+    Top = 920
+  end
+  object frReport1: TfrReport
+    Dataset = frUserDataset1
+    InitialZoom = pzDefault
+    Options = []
+    Preview = frPreview1
+    PreviewButtons = [pbZoom, pbLoad, pbSave, pbPrint, pbFind, pbHelp, pbExit]
+    DataType = dtDataSet
+    Title = 'Report Preview'
+    Left = 240
+    Top = 920
+  end
+  object ListChartSource1: TListChartSource
+    YCount = 2500
+    Left = 168
+    Top = 920
+  end
+  object lrAddFunctionLibrary1: TlrAddFunctionLibrary
+    Left = 384
+    Top = 920
+  end
+  object frImageExport1: TfrImageExport
+    Left = 480
+    Top = 920
+  end
+  object frHtmlDivExport1: TfrHtmlDivExport
+    Left = 16
+    Top = 920
+  end
+end
