@@ -18,6 +18,7 @@ type
     AddGraphButton: TButton;
     AddNote: TLabel;
     AddNoteButton: TButton;
+    ClearReport: TButton;
     CompileButton: TButton;
     Edit1: TEdit;
     frHtmlDivExport1: TfrHtmlDivExport;
@@ -50,6 +51,7 @@ type
     procedure AddGraphButtonClick(Sender: TObject);
     procedure AddGraphChange(Sender: TObject);
     procedure AddNoteButtonClick(Sender: TObject);
+    procedure ClearReportClick(Sender: TObject);
     procedure ClrGridClick(Sender: TObject);
     procedure DatabankTreeMouseLeave(Sender: TObject);
     procedure DatabankTreeMouseMove(Sender: TObject; Shift: TShiftState; X,Y: Integer);
@@ -171,6 +173,7 @@ var
   ItemTemp: TTreeNode;
 begin
   Tree.Items.BeginUpdate;
+  Try
   if Directory[Length(Directory)] <> '\' then Directory := Directory + '\';
   if FindFirst(Directory + '*.*', faDirectory, SearchRec) = 0 then
   begin
@@ -190,7 +193,11 @@ begin
     until FindNext(SearchRec) <> 0;
     FindClose(SearchRec);
   end;
+   except
+  Showmessage('Wrong dataBank path. Try again with correct one.');
   Tree.Items.EndUpdate;
+ end;
+ Tree.Items.EndUpdate;
 end;
 
 procedure TForm1.RefreshDataClick(Sender: TObject);
@@ -337,9 +344,10 @@ begin
  Check:=DeleteDirectory(ProgramDirectory+'TempDataStorage',True);
  If Check then
   RemoveDir(ProgramDirectory+'TempDataStorage');
- frReport1.Clear;
- frReport1.Free;
- CloseAction:=caFree;
+  frReport1.Preview.Hide;
+  frReport1.CleanupInstance;
+  frReport1.Pages.CleanupInstance;
+  CloseAction:=caFree;
 end;
 
 procedure TForm1.AddGraphButtonClick(Sender: TObject);
@@ -366,6 +374,27 @@ begin
  Note.Lines.SaveToFile('TempDataStorage\Note'+IntToStr(NoteCount)+'.txt',TEncoding.GetEncoding(CP_UTF8));
  Note.Text:='';
 end;
+
+procedure TForm1.ClearReportClick(Sender: TObject);
+var
+pnt:integer;
+begin
+ Try
+ frReport1.Preview.Hide;
+ frReport1.Preview.FreeInstance;
+ frReport1.CleanupInstance;
+ //frReport1.Pages.CleanupInstance;
+ Showmessage(IntToStr(frReport1.Pages.Count)+' pages left');
+ //for pnt:=0 to 255 do begin
+ DeleteDirectory(ProgramDirectory+'TempDataStorage',True);
+ if directoryexists(ProgramDirectory+'TempDataStorage')=False then
+ CreateDir('TempDataStorage');
+ finally
+ frReport1.Preview.Assign(frReport1);
+ frReport1.Preview.Show;
+ end;
+end;
+
 procedure GetFolderFromTree(Tree: TTreeView);
 var
   TempItem: TTreeNode;
@@ -464,14 +493,14 @@ procedure TForm1.CompileButtonClick(Sender: TObject);
   Images : array [0..255] of TfrPictureView;
   Notes: array [0..255] of TfrView;
 begin
- frReport1.Preview.CleanupInstance;
- frReport1.Preview.Hide;
+  frReport1.Preview.Hide;
+  frReport1.CleanupInstance;
+ frReport1.Pages.CleanupInstance;
   i:=0;
   for ClrPtr:= 0 to 255 do begin
    Images[ClrPtr]:=nil;
    Notes[ClrPtr]:=nil;
   end;
-  frReport1.Pages.Clear;
   while FileExists('TempDataStorage\Image'+IntToStr(2*i+1)+'.bmp') do begin
   frReport1.Pages.Add();
   ReportCompilePage(Images[0+2*i],Images[1+2*i],Notes[0+2*i],Notes[1+2*i],i,frReport1);

@@ -39,7 +39,7 @@ object Form1: TForm1
     TabOrder = 2
   end
   object DatabankTree: TTreeView
-    Left = 16
+    Left = 15
     Height = 221
     Hint = 'Doubleclick Node to search for *.dat files'
     Top = 119
@@ -336,6 +336,15 @@ object Form1: TForm1
     Width = 251
     Caption = 'Report Preview, type "Compile Report" to see it.'
     ParentColor = False
+  end
+  object ClearReport: TButton
+    Left = 920
+    Height = 25
+    Top = 936
+    Width = 112
+    Caption = 'Clear'
+    OnClick = ClearReportClick
+    TabOrder = 18
   end
   object lrPDFExport1: TlrPDFExport
     Left = 88
